@@ -73,5 +73,67 @@ After reaching their assigned sectors, the robots begin the scanning process:
 2. **Scanning**:
    - At each grid point, the robots scan the area within their sensing range (a circle with a radius of 1 unit).
    - This methodical approach guarantees that no areas are missed and that the entire sector is thoroughly scanned.
+## Theoretical Analysis
 
+### K-Means Clustering for Sector Division
 
+Given a field of dimensions \( L \times W \) and a set of \( N \) points representing locations in the field \( P = \{p_1, p_2, \dots, p_N \} \), where each \( p_i \) is a coordinate \( (x_i, y_i) \), and a number of robots (and hence sectors) \( k \), we aim to partition \( P \) into \( k \) clusters (sectors) each represented by a centroid \( C = \{c_1, c_2, \dots, c_k \} \).
+
+1. **Initialization**: 
+   - Select \( k \) initial centroids randomly from \( P \).
+
+2. **Assignment Step**:
+   - Each point \( p_i \) is assigned to the nearest centroid, forming \( k \) clusters. Mathematically, \( p_i \) is assigned to cluster \( j \) if:
+     $$
+     j = \arg\min_{j} ||p_i − c_j|| \quad (2)
+     $$
+   - where \( ||p_i − c_j|| \) is the Euclidean distance between \( p_i \) and \( c_j \).
+
+3. **Update Step**:
+   - Recompute each centroid \( c_j \) as the mean of all points assigned to it:
+     $$
+     c_j = \frac{1}{|S_j|} \sum_{p_i \in S_j} p_i \quad (3)
+     $$
+   - where \( S_j \) is the set of points in cluster \( j \).
+
+4. **Convergence**:
+   - The process repeats until centroids \( c_j \) no longer change significantly.
+
+### A* Algorithm
+
+To mathematically prove that a robot, given any starting position, can reach a corner of its assigned sector using the A* algorithm, we need to establish the properties of the A* algorithm and the nature of the environment in which the robot operates.
+
+#### Assumptions
+
+1. The field is represented as a graph where each point (or grid cell) in the sector is a node, and adjacent points are connected by edges.
+2. The robot’s starting position is denoted as node \( s \) in the graph.
+3. The target corner position is denoted as node \( t \).
+4. The cost to move from one node to an adjacent node is uniform and denoted as \( c \).
+
+#### A* Algorithm's Cost Function
+
+The A* algorithm finds the shortest path from node \( s \) to node \( t \) using the cost function:
+$$
+f(n) = g(n) + h(n)
+$$
+where \( g(n) \) is the actual cost from \( s \) to \( n \), and \( h(n) \) is the heuristic estimated cost from \( n \) to \( t \).
+
+#### Heuristic Function
+
+The heuristic function \( h(n) \) is admissible and is often chosen as the Euclidean or Manhattan distance:
+$$
+h(n) = d(n, t)
+$$
+where \( d(n, t) \) is the distance from \( n \) to \( t \).
+
+#### Proof of Reachability
+
+1. There exists at least one path from \( s \) to \( t \) in a connected graph.
+2. A* finds the shortest path due to the admissibility of \( h(n) \).
+3. For each node \( n \), \( g(n) \) is the cost of the cheapest path from \( s \) to \( n \). A* expands nodes in order of increasing \( f(n) \).
+4. A* will eventually expand node \( t \) as the number of nodes is finite.
+5. If \( h(n) \) is consistent, A* finds the shortest path without reprocessing any node.
+
+#### Conclusion
+
+Given the connected nature of the graph representing the sector and the properties of the A* algorithm, it is mathematically proven that the robot can always reach the corner of its assigned sector from any starting position.
