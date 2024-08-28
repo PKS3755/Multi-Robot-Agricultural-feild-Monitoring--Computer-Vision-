@@ -7,6 +7,18 @@ To validate this model, I conducted simula- tions focusing on the time efficienc
 The necessity of this model for selective pest control is underscored by its capability for precise area coverage. This allows for the accurate identi- fication of pest-affected areas, enabling localized treatment interventions and reducing the need for widespread pesticide use. Such a targeted ap- proach conserves beneficial organisms and min- imizes environmental harm, aligning with sus- tainable agricultural practices. The encouraging outcomes from the simulations suggest that this multi-robot system model has great potential for real-world applications in precision agriculture, especially in integrated pest management strategies.
 
 
+
+
+
+https://github.com/user-attachments/assets/618f70c3-ffca-4edd-900e-bf65ef85f9c3
+
+
+
+https://github.com/user-attachments/assets/f6cb9e1c-738b-4bec-bd01-d4dfac54477e
+
+
+
+
 # Mathematical Model
 
 In developing a mathematical model for a multi- robot system designed to scan an agricultural field, we consider various aspects including the robots’ capabilities, the environment, and the al- gorithms used for sector division and navigation. The model is based on a hypothetical scenario of a 20x20 unit agricultural field which is to be scanned by a fleet of five robots.
@@ -137,3 +149,58 @@ where \( d(n, t) \) is the distance from \( n \) to \( t \).
 #### Conclusion
 
 Given the connected nature of the graph representing the sector and the properties of the A* algorithm, it is mathematically proven that the robot can always reach the corner of its assigned sector from any starting position.
+
+
+
+This project successfully demonstrated the viability of a multi-robot system in precision agriculture, focusing on sector division, boundary determination, and efficient pathfinding. The implementation utilized a combination of K-Means clustering, Convex Hull, and A* algorithms. The results are presented in three main areas:
+
+1. **Sector Division and Boundary Determination**
+2. **Pathfinding Efficiency**
+3. **Overall System Performance in a Simulated Agricultural Environment**
+
+### Sector Division and Boundary Determination
+
+The K-Means algorithm effectively divided a simulated field into specified sectors. For a field of dimensions 20×20 units and 5 robots, the algorithm efficiently partitioned the area, ensuring a balanced distribution of workload among the robots.
+
+The subsequent application of the Convex Hull algorithm provided clear and precise boundaries for each sector. This was evidenced by the non-overlapping convex polygons formed around each cluster of points, ensuring that each robot had a distinct operational area.
+
+![Picture3](https://github.com/user-attachments/assets/5db58f01-c029-450b-ac51-cc6180ef1e43)
+
+*Figure 2: Red dots are the robots, X1, X2, ..., Xn are the sectors.*
+
+In Figure 2, the boundaries of each sector in the 20x20 field are illustrated. The sectors are assigned to the robots based on their proximity to the sector centroids. The assignments are as follows:
+
+- **Robot 2** is assigned to **Sector 1**.
+- **Robot 3** is assigned to **Sector 4**.
+- **Robot 1** is assigned to **Sector 3**.
+- **Robot 5** is assigned to **Sector 5**.
+- **Robot 4** is assigned to **Sector 2**.
+
+Each robot’s position is marked with a red dot, labeled with its corresponding number. The sectors are outlined with black lines, showing the convex hull of the points in each sector. The centroids of the sectors are marked with black X symbols, each labeled with the sector number. This visualization provides a clear view of the sector boundaries and the respective robots assigned to each sector, ensuring efficient coverage of the field from their initial random positions.
+
+### Pathfinding Efficiency
+
+The implementation of the A* algorithm demonstrated optimal pathfinding from any given starting position within a sector to predetermined target points, typically the corners of the sector. The algorithm consistently found the shortest path, taking into account the costs associated with traversing different nodes. The heuristic function, based on either Euclidean or Manhattan distance, proved to be effective and admissible, contributing to the algorithm’s efficiency.
+
+![picture4](https://github.com/user-attachments/assets/a7ff6ff0-429e-4a8e-9ffa-3abe8040598d)
+
+*Figure 3: Robot moving to the corner of the assigned sector.*
+
+### System Performance in Simulation
+
+In a simulated agricultural environment, the multi-robot system showed remarkable efficiency. The robots, each operating in their assigned sectors, covered the entire field systematically. The division of labor prevented redundancy and overlapping, enhancing the overall scanning process’s efficiency.
+
+
+
+https://github.com/user-attachments/assets/93857af9-7ce5-4fc9-8aeb-e2c0645077bb
+
+
+*Figure 4: Robot scanning the assigned sector of the agricultural field.*
+
+The simulation results presented in Figure 4 demonstrate the coverage achieved by the robots. Each robot’s assigned sector is represented by an irregular pentagon-shaped area, and the scanning coverage within this sector is highlighted in green. The robots themselves are depicted as smaller circles, with their sensing ranges indicated by larger concentric circles.
+
+## Conclusion
+
+The results from this project underscore the potential of using a multi-robot system for precision agriculture. The combination of K-Means clustering for sector division, Convex Hull for boundary determination, and A* for efficient pathfinding showed that such systems could significantly enhance operational efficiency in agricultural settings. These findings pave the way for further research and real-world application of multi-robot systems in agriculture, particularly for tasks requiring precise and efficient area coverage, such as selective pest control.
+
+
